@@ -2,34 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hari;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 use App\Models\Jadwal;
 use App\Http\Requests\JadwalRequest;
 
 class JadwalController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
         $jadwal = Jadwal::paginate(10);
+        return view('jadwal.index')->with(['jadwal' => $jadwal ]);
+    }
 
-        return view('jadwal.index',[
-            'jadwal' =>$jadwal
-        ]);
+    public function data(){
+        $jadwal = Jadwal::all();
+        return $jadwal;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        return view('jadwal.create');
+        $ruang = Ruang::all();
+        $hari = Hari::all();
+
+        return view('jadwal.create')->with(['ruang' => $ruang,'hari' => $hari]);
     }
 
     /**
@@ -59,15 +63,19 @@ class JadwalController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param Jadwal $jadwal
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Jadwal $jadwal)
     {
+        $ruang = Ruang::all();
+        $hari = Hari::all();
+
         return view('jadwal.edit',[
-            'item' => $jadwal
+            'item' => $jadwal,
+            'ruang' => $ruang,
+            'hari' => $hari
         ]);
     }
 

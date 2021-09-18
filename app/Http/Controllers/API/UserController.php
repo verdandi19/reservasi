@@ -43,18 +43,18 @@ class UserController extends Controller
                 'token_type' => 'Bearer',
                 'user' => $user,
             ], 'Authenticated');
-            
+
 
         } catch(Exception $error) {
             return ResponseFormatter::error([
-                'message' => 'Something went wrong', 
+                'message' => 'Something went wrong',
                 'error' => $error,
             ], 'Authentication Failed', 500);
         }
     }
 
     public function register (Request $request) {
-        try {
+//        try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -82,13 +82,13 @@ class UserController extends Controller
             ]);
 
 
-        } catch (Exception $error) {
-            return ResponseFormatter::error([
-                'message' => 'Something went wrong',
-                'error' => $error
-            ], 'Authentication Failed', 500);
-
-        }
+//        } catch (Exception $error) {
+//            return ResponseFormatter::error([
+//                'message' => 'Something went wrong',
+//                'error' => $error->getMessage()
+//            ], 'Authentication Failed', 500);
+//
+//        }
     }
 
     public function logout(Request $request) {

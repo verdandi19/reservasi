@@ -20,8 +20,8 @@ Route::prefix('dashboard')
         Route::resource('users', UserController::class);
         Route::resource('ruang', RuangController::class);
         Route::resource('jadwal', JadwalController::class);
-
         Route::get('proses/{id}/status/{status}',[ProsesController::class, 'changeStatus'])
             ->name('proses.changeStatus');
-        Route::resource('proses', ProsesController::class);
+        Route::get('proses', [ProsesController::class,'index']);
+        Route::get('proses/cetak', [ProsesController::class,'cetakLaporan']);
     });

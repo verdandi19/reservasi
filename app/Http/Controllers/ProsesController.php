@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Proses;
 use App\Http\Requests\ProsesRequest;
 
 class ProsesController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        $proses = Proses::with(['ruang','jadwal','user'])->paginate(10);
-
+        $proses = Proses::paginate(10);
         return view('proses.index',[
             'proses' => $proses
         ]);
@@ -48,13 +47,14 @@ class ProsesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @param $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Proses $proses)
+    public function show($id)
     {
+        $proses = Proses::with(['ruang','user', 'getJadwal'])->find($id);
+
         return view('proses.detail', [
             'item' => $proses
         ]);
@@ -103,4 +103,35 @@ class ProsesController extends Controller
 
         return redirect()->route('proses.show', $id);
     }
+
+    public static function setDay($day){
+        if ($day == 0){
+            return 'Minggu';
+        }elseif ($day == 1){
+            return 'Senin';
+        }elseif ($day == 2){
+            return 'Selasa';
+        }elseif ($day == 3){
+            return 'Rabu';
+        }elseif ($day == 4){
+            return 'Kamis';
+        }elseif ($day == 5){
+            return 'Jumat';
+        }else{
+            return 'Sabtu';
+        }
+    }
+
+    function cetakLaporan(){
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->data())->setPaper('f4', 'landscape');
+
+        return $pdf->stream();
+    }
+
+    function data(){
+        $proses = Proses::all();
+        return view('proses.laporan')->with(['proses' => $proses]);
+    }
+
 }

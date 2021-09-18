@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 
 class RuangController extends Controller
@@ -48,5 +50,10 @@ class RuangController extends Controller
         return ResponseFormatter::success(
             $ruang->paginate($limit), 'Data list ruang berhasil diambil'
         );
+    }
+
+    public function index(){
+        $ruang = Ruang::all();
+        return $ruang;
     }
 }

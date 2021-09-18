@@ -17,9 +17,10 @@
                     <thead>
                         <tr>
                             <th class="border px-6 py-4">Id</th>
-                            <th class="border px-6 py-4">Nama</th>
+                            <th class="border px-6 py-4">Kelas</th>
                             <th class="border px-6 py-4">Hari</th>
-                            <th class="border px-6 py-4">Jam</th>
+                            <th class="border px-6 py-4">Mulai</th>
+                            <th class="border px-6 py-4">Selesai</th>
                             <th class="border px-6 py-4">MataKuliah</th>
                             <th class="border px-6 py-4">SKS</th>
                             <th class="border px-6 py-4">Sifat</th>
@@ -33,13 +34,14 @@
                         <tr>
                             <td class="border px-6 py-4">{{ $item->id }}</td>
                             <td class="border px-6 py-4">{{ $item->nama }}</td>
-                            <td class="border px-6 py-4">{{ $item->hari }}</td>
-                            <td class="border px-6 py-4">{{ $item->jam }}</td>
+                            <td class="border px-6 py-4">{{ $item->gethari->nama }}</td>
+                            <td class="border px-6 py-4">{{ date('H:i', strtotime($item->jam)) }}</td>
+                            <td class="border px-6 py-4">{{ date('H:i', strtotime($item->selesai)) }}</td>
                             <td class="border px-6 py-4">{{ $item->matakuliah }}</td>
                             <td class="border px-6 py-4">{{ $item->sks }}</td>
                             <td class="border px-6 py-4">{{ $item->sifat }}</td>
                             <td class="border px-6 py-4">{{ $item->dosen }}</td>
-                            <td class="border px-6 py-4">{{ $item->ruang }}</td>
+                            <td class="border px-6 py-4">{{ $item->getRuang->nama }}</td>
                             <td class="border px-6 py-4 text-center">
                             <div class="flex flex-wrap -mx-4 mb-">
                                 <a href="{{ route('jadwal.edit', $item->id) }}" class="inline-block bg-gray-500 hover:bg-gray-700 text-black font-bold py-2 px-4 mx-2 rounded">
@@ -52,7 +54,7 @@
                                     </button>
                                 </form>
                             </div>
-                            </td>    
+                            </td>
                         </tr>
                         @empty
                         <tr>

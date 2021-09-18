@@ -22,6 +22,11 @@ class RuangController extends Controller
         ]);
     }
 
+    public function data(){
+        $ruang = Ruang::all();
+        return $ruang;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
