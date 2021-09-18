@@ -32,9 +32,14 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                             Nama Kelas
                         </label>
-                        <input value="{{ old('kelas') ?? $item->nama}}" name="nama"
-                               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                               id="grid-last-name" type="text" placeholder="Nama Kelas">
+                        <select value="" name="nama"
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" placeholder="Kelas" required>
+                            <option value="">Pilih Kelas</option>
+                            <option value="A" {{$item->nama == 'A' ? 'selected' : ''}}>A</option>
+                            <option value="B" {{$item->nama == 'B' ? 'selected' : ''}}>B</option>
+                            <option value="C" {{$item->nama == 'C' ? 'selected' : ''}}>C</option>
+                        </select>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">

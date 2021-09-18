@@ -88,7 +88,7 @@ class JadwalController extends Controller
 
     public function jadwal(){
         $id = \request('id') ?? 1;
-        $jadwal = Jadwal::where('hari','=',$id)->get();
+        $jadwal = Jadwal::where([['hari','=',$id],['nama','=',Auth::user()->kelas]])->get();
         return $jadwal;
     }
 }

@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('jadwal', [JadwalController::class, 'jadwal']);
     Route::get('cari-ruangan', [ProsesController::class,'ruangTerpakai']);
     Route::post('reservation', [ProsesController::class,'store']);
+    Route::get('reservation', [ProsesController::class,'dataReservasi']);
+    Route::get('reservation/{id}', [ProsesController::class,'dataReservasiShow']);
 });
 
 Route::post('login', [UserController::class, 'login']);

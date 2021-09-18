@@ -141,11 +141,20 @@ class ProsesController extends Controller
             ]
         );
         Arr::set($field, 'user_id', Auth::id());
-        Proses::create($field);
-
-        return response()->json(['msg' => 'success']);
+        $proses = Proses::create($field);
+        $dataProses = Proses::find($proses->id);
+        return response()->json(['msg' => 'success', 'data' => $dataProses]);
     }
 
+    public function dataReservasi(){
+        $proses = Proses::where('user_id','=',Auth::id())->get();
+        return $proses;
+    }
+
+    public function dataReservasiShow($id){
+        $proses = Proses::find($id);
+        return $proses;
+    }
 
 
 }
